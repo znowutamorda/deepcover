@@ -6,19 +6,21 @@
 enum protocol
 {
     GENERIC,
-    BMP
+    BMP,
+    WAV
 };
 
-constexpr int PROTOCOL_NUMBER = 2;
+constexpr int PROTOCOL_NUMBER = 3;
 
 inline std::string PROTOCOL_LOOKUP[] =
 {
     "generic",
-    "bmp"
+    "bmp",
+    "wav"
 };
 
 protocol match_protocol(const std::string &&str);
 
-GenericHandler *get_handler(protocol type, const std::string &in, const std::string &code, const std::string &out);
+GenericHandler *get_handler(protocol type, const std::string &in, const std::string &code, const std::string &out, int offset);
 
 #endif //BUILDER_HPP

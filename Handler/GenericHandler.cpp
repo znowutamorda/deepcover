@@ -1,7 +1,8 @@
 #include "Handler.hpp"
 
-GenericHandler::GenericHandler(const std::string &in, const std::string &code, const std::string &out)
+GenericHandler::GenericHandler(const std::string &in, const std::string &code, const std::string &out, int offset)
 {
+    this->offset = offset;
     cipher.open(in, std::ios::binary | std::ios::in);
     message.open(code, std::ios::binary | std::ios::in);
     output.open(out, std::ios::binary | std::ios::out | std::ios::trunc);
@@ -9,6 +10,10 @@ GenericHandler::GenericHandler(const std::string &in, const std::string &code, c
 
 void GenericHandler::encode()
 {
+    for (int i = 0; i < offset && !cipher.eof(); i++) // offset
+    {
+        output.put(cipher.get());
+    }
     int count = 0;
     char in;
     while (true)
@@ -40,6 +45,8 @@ void GenericHandler::encode()
 
 void GenericHandler::decode()
 {
+    cipher.seekg(offset, std::ios::cur);
+    message.seekg(offset, std::ios::cur);
     int count = 0;
     unsigned char out = 0;
     while (true)

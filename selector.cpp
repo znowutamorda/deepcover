@@ -13,14 +13,16 @@ protocol match_protocol(const std::string &&str)
     return result;
 }
 
-GenericHandler *get_handler(const protocol type, const std::string &in, const std::string &code, const std::string &out)
+GenericHandler *get_handler(const protocol type, const std::string &in, const std::string &code, const std::string &out, const int offset)
 {
     switch (type)
     {
         case BMP:
-            return new BMPHandler(in, code, out);
+            return new BMPHandler(in, code, out, offset);
+        case WAV:
+            return new GenericHandler(in, code, out, offset + 44);
         default:
-            return new GenericHandler(in, code, out);
+            return new GenericHandler(in, code, out, offset);
     }
 }
 
