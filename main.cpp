@@ -1,3 +1,5 @@
+#include <string>
+
 #include "selector.hpp"
 
 using namespace std;
@@ -23,8 +25,10 @@ int main(int argc, char **argv)
         }
     }
     protocol p = match_protocol(f_index ? argv[f_index] : "");
+    GenericHandler *handler = get_handler(p, argv[arg_index], argv[arg_index + 1], argv[arg_index + 2]);
     if (decode)
-        select_extractor(p, argv[arg_index], argv[arg_index + 1], argv[arg_index + 2]);
+        handler->decode();
     else
-        select_injector(p, argv[arg_index], argv[arg_index + 1], argv[arg_index + 2]);
+        handler->encode();
+    delete handler;
 }

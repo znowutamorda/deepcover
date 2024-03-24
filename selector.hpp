@@ -1,8 +1,7 @@
 #ifndef BUILDER_HPP
 #define BUILDER_HPP
 
-#include "Extractor/Extractor.hpp"
-#include "Injector/Injector.hpp"
+#include "Handler/Handler.hpp"
 
 enum protocol
 {
@@ -20,8 +19,6 @@ inline std::string PROTOCOL_LOOKUP[] =
 
 protocol match_protocol(const std::string &&str);
 
-void select_injector(protocol type, const std::string &in, const std::string &code, const std::string &out);
-
-void select_extractor(protocol type, const std::string &in, const std::string &code, const std::string &out);
+GenericHandler *get_handler(protocol type, const std::string &in, const std::string &code, const std::string &out);
 
 #endif //BUILDER_HPP

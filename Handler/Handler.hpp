@@ -14,9 +14,15 @@ public:
     virtual void encode();
     virtual void decode();
     virtual ~GenericHandler();
-
 };
 
+class BMPHandler : public GenericHandler
+{
+public:
+    BMPHandler(const std::string &in, const std::string &code, const std::string &out);
+    void encode() override;
+    void decode() override;
+};
 
 
 #endif //GENERICHANDLER_HPP

@@ -1,5 +1,9 @@
 #include "selector.hpp"
 
+#include <string>
+
+#include "Handler/Handler.hpp"
+
 protocol match_protocol(const std::string &&str)
 {
     protocol result = GENERIC;
@@ -9,30 +13,14 @@ protocol match_protocol(const std::string &&str)
     return result;
 }
 
-void select_injector(const protocol type, const std::string &in, const std::string &code, const std::string &out)
+GenericHandler *get_handler(const protocol type, const std::string &in, const std::string &code, const std::string &out)
 {
     switch (type)
     {
         case BMP:
-        {
-            BMPInjector(in, code, out).encode();
-            break;
-        }
+            return new BMPHandler(in, code, out);
         default:
-            GenericInjector(in, code, out).encode();
+            return new GenericHandler(in, code, out);
     }
 }
 
-void select_extractor(const protocol type, const std::string &in, const std::string &code, const std::string &out)
-{
-    switch (type)
-    {
-        case BMP:
-        {
-            BMPExtractor(in, code, out).decode();
-            break;
-        }
-        default:
-            GenericExtractor(in, code, out).decode();
-    }
-}
