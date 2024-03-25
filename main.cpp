@@ -32,6 +32,8 @@ int main(int argc, char **argv)
             ++i;
         }
     }
+    if (string(argv[arg_index]) == argv[arg_index + 2] || string(argv[arg_index + 1]) == argv[arg_index])
+        return 0;
     protocol p = match_protocol(f_index ? argv[f_index] : "");
     GenericHandler *handler = get_handler(p, argv[arg_index], argv[arg_index + 1], argv[arg_index + 2], offset);
     if (decode)
